@@ -13,6 +13,7 @@ class ListEmployeeComponent extends Component {
 
         this.addEmployee = this.addEmployee.bind(this);
         this.updateEmployee = this.updateEmployee.bind(this);
+        this.deleteEmployee = this.deleteEmployee.bind(this);
     }
     
     componentDidMount(){
@@ -26,9 +27,20 @@ class ListEmployeeComponent extends Component {
     }
 
     updateEmployee(id){
-        this.props.history.push('/update-employee/'+ id );
+        this.props.history.push(`/update-employee/${id}` );
         console.log("id is : "+ id);
     }
+
+    viewEmployee(id){
+        this.props.history.push(`view-employee/${id}`);
+    }
+
+    deleteEmployee(id){
+        EmployeeService.deleteEmployee(id).then(res =>{
+            window.location.reload()});
+        
+    }
+
 
     render() {
         return (
@@ -54,12 +66,16 @@ class ListEmployeeComponent extends Component {
                                     employee =>
                                     <tr key = {employee.id}>
                                         <td>{employee.id}</td>
-                                        <td>{employee.name}</td>
+                                        <td>{employee.employeeName}</td>
                                         <td>{employee.gender}</td>
                                         <td>{employee.projectName}</td>
                                         <td>{employee.address}</td>
-                                        <td> <button className="btn btn-primary"
-                                            onClick={() => this.updateEmployee(employee.id)}>Update</button></td>
+                                        <td> <button className="btn btn-secondary"
+                                            onClick={() => this.updateEmployee(employee.id)}>Update</button> &nbsp;
+                                        <button className="btn btn-danger"
+                                            onClick={() => this.deleteEmployee(employee.id)}>Delete</button> &nbsp;
+                                        <button className="btn btn-info"
+                                            onClick={() => this.viewEmployee(employee.id)}>View</button></td>
 
                                     </tr>
 
@@ -70,7 +86,8 @@ class ListEmployeeComponent extends Component {
                     </table>
                     <div className="button"> 
                     <button className="btn btn-primary" onClick={this.addEmployee}> Add Employee </button>{'  '}
-                    </div><br></br>
+                    </div>
+                    <br></br>
                    
 
 

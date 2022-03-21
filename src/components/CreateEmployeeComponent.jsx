@@ -25,7 +25,7 @@ class CreateEmployeeComponent extends Component {
 
     saveEmployee = (e) =>{
         e.preventDefault();
-        let employee = {name: this.state.employeeName, projectName: this.state.projectName,
+        let employee = {employeeName: this.state.employeeName, projectName: this.state.projectName,
              address: this.state.address, gender: this.state.gender}
         console.log('employee => ' + JSON.stringify(employee));
 

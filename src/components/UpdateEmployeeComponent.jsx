@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import EmployeeService from '../services/EmployeeService';
-import {Params} from '@angular/router';
+// import ListEmployeeComponent from './ListEmployeeComponent';
+// import {params} from 'angular-module';
+// import {Router} from 'react-router-dom';
+// import updateEmployee from './ListEmployeeComponent';
 
 
 class UpdateEmployeeComponent extends Component {
     constructor(props){
         super(props)
-
+        
         this.state = {
-            id: this.props.match.Params.id,
+
+            id: this.props.match.params.id,
             employeeName:'',
             gender:'',
             projectName:'',
@@ -27,7 +31,7 @@ class UpdateEmployeeComponent extends Component {
     componentDidMount(){
         EmployeeService.getEmployeeById(this.state.id).then((res) =>{
             let employee = res.data;
-            this.setState({name: employee.employeeName,
+            this.setState({ employeeName: employee.employeeName,
                 projectName: employee.projectName,
                 address: employee.address,
                 gender: employee.gender
@@ -37,12 +41,11 @@ class UpdateEmployeeComponent extends Component {
 
     updateEmployee = (e) => {
         e.preventDefault();
-        let employee = {name: this.state.employeeName, projectName: this.state.projectName,
+        let employee = {employeeName: this.state.employeeName, projectName: this.state.projectName,
              address: this.state.address, gender: this.state.gender}
         console.log('employee => ' + JSON.stringify(employee));
-        console.log('id => ' + JSON.stringify(this.state.id));
-        EmployeeService.updateEmployee(this.state.id).then(res => {
-            this.props.history.push('/employees');
+        EmployeeService.updateEmployee(this.state.id, employee).then(res => {
+            this.props.history.push('/');
         });
     }
 

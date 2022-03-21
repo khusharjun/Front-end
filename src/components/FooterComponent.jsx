@@ -14,7 +14,7 @@ class FooterComponent extends Component {
 
     render() {
         return (
-            <div class="disable-select">
+            <div className="disable-select">
                 <footer className='footer'>
                     <span className="text-muted">Copyrights reserved</span>
                 </footer>
